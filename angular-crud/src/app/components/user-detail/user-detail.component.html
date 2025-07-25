@@ -1,0 +1,17 @@
+<div *ngIf="user" class="p-4 border rounded shadow bg-white">
+  <h3 class="text-xl font-semibold mb-2">Detalle del usuario</h3>
+  <div class="flex items-center gap-4 mb-4">
+    <img [src]="user.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
+    <div>
+      <p class="text-lg">{{ user.first_name }} {{ user.last_name }}</p>
+      <p class="text-sm text-gray-600">{{ user.email }}</p>
+    </div>
+  </div>
+  <div>
+    <p><span class="font-semibold">ID:</span> {{ user.id }}</p>
+  </div>
+</div>
+
+<div *ngIf="!user" class="text-gray-500 italic">
+  Selecciona un usuario para ver los detalles.
+</div>
