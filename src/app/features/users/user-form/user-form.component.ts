@@ -16,6 +16,7 @@ export class UserFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
 
+  // Formulario reactivo con validaciones básicas
   form = this.fb.group({
     first_name: ['', Validators.required],
     last_name: ['', Validators.required],
@@ -23,7 +24,7 @@ export class UserFormComponent implements OnInit {
     avatar: [''],
   });
 
-  editing = false;
+  editing = false;  // Indica si estamos en modo edición
   userId: number | null = null;
 
   ngOnInit() {
@@ -33,6 +34,7 @@ export class UserFormComponent implements OnInit {
       this.userId = +id;
       const user = this.userService.getUserById(this.userId);
       if (user) {
+        // Prellenamos el formulario si el usuario existe
         this.form.patchValue(user);
       }
     }
@@ -54,7 +56,7 @@ export class UserFormComponent implements OnInit {
         this.userService.addUser(user);
       }
 
-      this.router.navigate(['/']);
+      this.router.navigate(['/']);  // Redirige a la lista de usuarios
     }
   }
 
