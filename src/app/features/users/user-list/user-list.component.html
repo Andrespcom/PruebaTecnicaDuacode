@@ -1,0 +1,112 @@
+<div class="max-w-6xl mx-auto px-4 py-6">
+  <!-- Nuevo usuari@ -->
+  <div class="flex justify-end mb-4">
+    <a
+      [routerLink]="['/add']"
+      class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition"
+    >
+      ➕ Añadir Usuario
+    </a>
+  </div>
+
+  <!-- Búsqueda y Ordenación -->
+  <div
+    class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 px-2"
+  >
+    <input
+      [(ngModel)]="searchTerm"
+      type="text"
+      placeholder="🔍 Buscar por nombre o apellido..."
+      class="border border-gray-300 rounded px-4 py-2 w-full md:w-1/2"
+    />
+
+    <button
+      (click)="toggleSort()"
+      class="bg-gray-100 border border-gray-300 rounded px-4 py-2 hover:bg-gray-200"
+    >
+      Ordenar por nombre:
+      <span *ngIf="sortState === 'asc'">▲</span>
+      <span *ngIf="sortState === 'desc'">▼</span>
+      <span *ngIf="sortState === 'none'">❌</span>
+    </button>
+  </div>
+
+  <!-- Lista de usuarios -->
+  <div
+    *ngIf="pagedUsers.length > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-8"
+  >
+    <div
+      *ngFor="let user of pagedUsers"
+      class="bg-white rounded-2xl shadow-md overflow-hidden group relative transition-transform hover:scale-[1.01]"
+    >
+      <!-- Imagen con botones encima -->
+      <div class="relative">
+        <img
+          [src]="user.avatar"
+          alt="Avatar"
+          class="w-full h-64 sm:h-72 object-cover"
+        />
+        <a
+          [routerLink]="['/edit', user.id]"
+          class="absolute top-3 right-3 bg-yellow-500 text-white text-sm sm:text-base px-3 py-2 rounded-full shadow hover:bg-yellow-600 transition"
+          title="Editar"
+        >
+          ✏️
+        </a>
+        <button
+          (click)="deleteUser(user.id)"
+          class="absolute bottom-3 left-3 bg-red-600 text-white text-sm sm:text-base px-3 py-2 rounded-full shadow hover:bg-red-700 transition"
+          title="Eliminar"
+        >
+          🗑️
+        </button>
+      </div>
+
+      <div class="p-5 text-center">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-900">
+          {{ user.first_name }} {{ user.last_name }}
+        </h2>
+        <p class="text-sm text-gray-600">{{ user.email }}</p>
+        <a
+          [routerLink]="['/detail', user.id]"
+          class="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium"
+        >
+          📄 Ver perfil
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="flex justify-center mt-8 space-x-2">
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="setPage(i + 1)"
+      [class.bg-blue-600]="currentPage === i + 1"
+      [class.text-white]="currentPage === i + 1"
+      [class.opacity-50]="currentPage === null"
+      class="px-4 py-2 rounded border border-gray-300 hover:bg-blue-100 transition"
+    >
+      {{ i + 1 }}
+    </button>
+  </div>
+
+  <!-- Cargar más -->
+  <div class="mt-10 text-center">
+    <button
+      (click)="loadMore()"
+      class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-6 py-3 rounded-lg shadow"
+    >
+      ⬇️ Cargar más
+    </button>
+  </div>
+
+  <!-- Alerta -->
+  <div
+    *ngIf="showAlert"
+    class="mt-4 w-fit mx-auto bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded shadow animate-pulse"
+  >
+    🚫 No hay más usuarios disponibles.
+  </div>
+</div>

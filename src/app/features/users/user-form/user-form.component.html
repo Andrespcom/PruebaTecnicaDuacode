@@ -1,0 +1,62 @@
+<div class="max-w-xl mx-auto px-4 py-6">
+  <h2 class="text-2xl font-bold mb-4">
+    {{ editing ? 'Editar Usuario' : 'Nuevo Usuario' }}
+  </h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label class="block font-semibold mb-1">Nombre</label>
+      <input
+        formControlName="first_name"
+        class="w-full border border-gray-300 px-4 py-2 rounded"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Apellidos</label>
+      <input
+        formControlName="last_name"
+        class="w-full border border-gray-300 px-4 py-2 rounded"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Email</label>
+      <input
+        formControlName="email"
+        type="email"
+        class="w-full border border-gray-300 px-4 py-2 rounded"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Avatar (URL)</label>
+      <input
+        formControlName="avatar"
+        class="w-full border border-gray-300 px-4 py-2 rounded"
+      />
+    </div>
+
+    <div class="flex justify-between mt-6">
+      <button
+        type="button"
+        (click)="goBack()"
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+      >
+        ⬅️ Volver
+      </button>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+      >
+        💾 Guardar
+      </button>
+    </div>
+    
+  </form>
+</div>

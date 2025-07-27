@@ -1,0 +1,35 @@
+<!-- Contenedor principal con sombra y redondeado -->
+<div *ngIf="user; else notFound"
+     class="max-w-md mx-auto p-6 bg-white rounded-3xl shadow-lg text-center animate-fade-in">
+  
+  <!-- Imagen del avatar -->
+  <img [src]="user.avatar"
+       alt="Avatar"
+       class="w-32 h-32 mx-auto rounded-full object-cover shadow mb-4 border-4 border-blue-200" />
+
+  <!-- Nombre completo -->
+  <h2 class="text-3xl font-bold text-gray-800">{{ user.first_name }} {{ user.last_name }}</h2>
+
+  <!-- Email -->
+  <p class="text-gray-600 mt-1">{{ user.email }}</p>
+
+  <!-- ID del usuario -->
+  <p class="text-sm text-gray-400 mt-2">ID interno: {{ user.id }}</p>
+
+  <!-- Botón para volver -->
+  <button (click)="goBack()"
+          class="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow transition">
+    ⬅️ Volver
+  </button>
+</div>
+
+<!-- Vista en caso de que el usuario no exista -->
+<ng-template #notFound>
+  <div class="text-center mt-10">
+    <p class="text-red-600 font-semibold text-lg">⚠️ Usuario no encontrado</p>
+    <button (click)="goBack()"
+            class="mt-4 bg-gray-300 hover:bg-gray-400 px-5 py-2 rounded shadow">
+      ⬅️ Volver
+    </button>
+  </div>
+</ng-template>
